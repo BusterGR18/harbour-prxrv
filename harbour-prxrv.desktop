@@ -1,6 +1,7 @@
 [Desktop Entry]
 Name=Prxrv
 Exec=harbour-prxrv
+Icon=harbour-prxrv.png
 Terminal=false
 Type=Application
 X-Ubuntu-Touch=true

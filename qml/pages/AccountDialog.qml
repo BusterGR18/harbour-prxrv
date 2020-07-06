@@ -3,6 +3,7 @@ import QtQuick.Controls 2.0
 
 import "../js/pixiv.js" as Pixiv
 import "../js/accounts.js" as Accounts
+import "../Theme.js" as Theme
 
 Page {
     // Dialog Component leads to missing global properties in callback setTokenAndConfig()

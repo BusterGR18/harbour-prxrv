@@ -7,4 +7,3 @@ var highlightColor = "pink";
 var secondaryHighlightColor = "purple";
 var primaryColor = "blue";
 var secondaryColor = "lightblue";
-

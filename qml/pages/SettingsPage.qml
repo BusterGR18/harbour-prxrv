@@ -1,5 +1,9 @@
-import QtQuick 2.2
-import Sailfish.Silica 1.0
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import GSettings 1.0
+
+import "../components"
+import "../components/ListItems" as ListItems
 
 import "../js/settings.js" as Settings
 import "../js/accounts.js" as Accounts
@@ -31,8 +35,96 @@ Page {
             }
         }
     }
+    
+    header: PageHeader {
+        title: i18n.tr("Settings")
+        flickable: view.flickableItem
+    }
 
-    Component {
+
+    ScrollView{
+        id: view
+        anchors.fill: parent
+        Column{
+            width: view.width
+            
+            ListItems.SectionDivider {
+                text: "Downloads"
+
+                // Check for "undefined"
+                // Ref. http://askubuntu.com/questions/527799/how-do-you-check-if-a-property-is-undefined-in-qml
+                visible: typeof settings.enableIndicatorMenu != "undefined"
+            }
+
+            
+            ListItems.Control {
+                title.text: "Show R-18 Works"
+                summary.text: "Shows or hide R-18 Works"
+                summary.maximumLineCount: Number.MAX_VALUE
+
+                // Check for "undefined"
+                // Ref. http://askubuntu.com/questions/527799/how-do-you-check-if-a-property-is-undefined-in-qml
+                visible: typeof settings.enableIndicatorMenu != "undefined"
+
+                control: Switch {
+                    Component.onCompleted: checked = settings.enableIndicatorMenu
+                    onClicked: {
+                        Settings.write('showR18', checked)
+                    }
+                }
+            }
+
+
+            ListItems.Control {
+                title.text: "Enable Debug"
+                summary.text: "Enable or disable Debug"
+                summary.maximumLineCount: Number.MAX_VALUE
+
+                // Check for "undefined"
+                // Ref. http://askubuntu.com/questions/527799/how-do-you-check-if-a-property-is-undefined-in-qml
+                visible: typeof settings.enableIndicatorMenu != "undefined"
+
+                control: Switch {
+                    Component.onCompleted: checked = settings.enableIndicatorMenu
+                    onClicked: {
+                        Settings.write('debugOn', checked)
+                    }
+                }
+            }
+
+            ListItems.SectionDivider {
+                text: "Cache"
+
+                // Check for "undefined"
+                // Ref. http://askubuntu.com/questions/527799/how-do-you-check-if-a-property-is-undefined-in-qml
+                visible: typeof settings.enableIndicatorMenu != "undefined"
+            }
+
+            ListItems.Button{
+                id:cacheclearerButton
+                title.text: "Clear Cache"
+                button{
+                    text: "Clear"
+                    onClicked:{
+                        if (cacheSized) {
+                        cacheSize = cacheMgr.clear(cachePath, 'thumbnails,icons') / 1024;
+                    } else {
+                        cacheSize = cacheMgr.getSize(cachePath, 'thumbnails,icons') / 1024;
+                        cacheSized = !cacheSized;
+                    }
+                    }
+
+                }
+            }
+
+        }
+
+
+    }
+
+}
+
+    /*Component {
         id: resetDialog
 
         Dialog {
@@ -57,13 +149,13 @@ Page {
         }
     }
 
-    SilicaFlickable {
+    Flickable {
         id: settingsFlickable
 
         contentHeight: settingsColumn.height + Theme.paddingLarge
         anchors.fill: parent
 
-        PullDownMenu {
+        /*PullDownMenu {
             MenuItem {
                 text: qsTr("Reset")
                 onClicked: {
@@ -108,7 +200,7 @@ Page {
                 text: customName
                 label: qsTr("Custom filename, e.g. %a_%u/%i_%t\n%a: artist ID, %u: artist username,\n%n: artist name, %i: work ID, %t: title,\n%i is required.")
                 placeholderText: qsTr("Custom filename, e.g. %a_%u/%i_%t")
-                validator: RegExpValidator { regExp: /.*%[ti].*/ }
+                validator: RegExpValidator { regExp: /.*%[ti].*/ /*}
             }
 
             SectionHeader {
@@ -148,7 +240,7 @@ Page {
                 text: qsTr("Cache")
             }
 
-            BackgroundItem {
+            /*BackgroundItem {
                 height: Theme.itemSizeSmall
                 width: parent.width
                 Label {
@@ -190,7 +282,6 @@ Page {
         if (status == PageStatus.Deactivating) {
             saveSettings()
             debugOn = debugSwitch.checked
-            booruEnabled = booruSwitch.checked
             if (showR18_ !== limitSwitch.checked) {
                 showR18 = limitSwitch.checked
                 activityModel.clear()
@@ -201,4 +292,4 @@ Page {
         }
     }
 
-}
+}*/

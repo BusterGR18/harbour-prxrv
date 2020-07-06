@@ -1,25 +1,135 @@
-import QtQuick 2.2
-import Sailfish.Silica 1.0
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import QtQml.Models 2.1
+import Qt.labs.settings 1.0
 
 import "../js/pixiv.js" as Pixiv
+import "../Theme.js" as Theme
+import "../components"
+import "../components/ListItems" as ListItems
 
-Page {
+
+MainView{
+    id: mainView
+    objectName: "mainView"
+    applicationName: "harbour-prxrv.gusma18"
+
+    width: units.gu(100)
+    height: units.gu(76)
+
+    Component.onCompleted: {
+        window.minimumWidth = units.gu(100)
+        window.minimumHeight = units.gu(76)
+        loginCheck()
+        requestMgr.downloadProgress.connect(updateProgress)
+        requestMgr.allImagesSaved.connect(notifyDownloadsFinished)
+        requestMgr.errorMessage.connect(showErrorMessage)
+    }    
+
+    Page {
+            id: mainPage
+
+            header: PageHeader {
+                id: mainPageHeader
+                property int selectedTabIndex: 0
+
+                leadingActionBar.actions: [
+                    Action {
+                        text: i18n.tr("Accounts")
+                        onTriggered: mainPage.header.selectedTabIndex = 0
+                        iconName: mainPage.header.selectedTabIndex == 0 ? "tick" : ""
+                    },
+
+                    Action {
+                        text: i18n.tr("Main")
+                        onTriggered: mainPage.header.selectedTabIndex = 1
+                        iconName: mainPage.header.selectedTabIndex == 1 ? "tick" : ""
+                    },
+
+                    Action {
+                        text: i18n.tr("Settings")
+                        onTriggered: mainPage.header.selectedTabIndex = 2
+                        iconName: mainPage.header.selectedTabIndex == 2 ? "tick" : ""
+                    }
+                ]
+                trailingActionBar {
+                    actions: [
+                        Action {
+                            id: startAction
+                            text: i18n.tr('About')
+                            iconName: "info"
+                            onTriggered: {
+                                mainPage.pageStack.push(Qt.resolvedUrl("AboutPage.qml"))
+                            }
+                        }
+                    ]
+                }
+
+                contents: ListItemLayout {
+                    anchors.centerIn: parent
+                    anchors.verticalCenterOffset: units.gu(0.25)
+                    title.text: "Prxrv" 
+                    subtitle.text: mainPageHeader.leadingActionBar.actions[mainPageHeader.selectedTabIndex].text
+                }
+
+                title: "Prxrv"
+            }
+
+            ListView {
+                id: view
+                anchors {
+                    top: mainPage.header.bottom
+                    bottom: parent.bottom
+                    left: parent.left
+                    right: parent.right
+                }
+
+                clip: true
+                orientation: ListView.Horizontal
+                interactive: false
+                snapMode: ListView.SnapOneItem
+                highlightMoveDuration: 0
+                currentIndex: mainPage.header.selectedTabIndex
+
+                model: ObjectModel {
+                    Loader {
+                        width: view.width
+                        height: view.height
+                        asynchronous: true
+                        source: Qt.resolvedUrl("AccountsPage.qml")
+                    }
+                    Loader {
+                        width: view.width
+                        height: view.height
+                        asynchronous: true
+                        source: Qt.resolvedUrl("IMPage.qml")
+                    }
+                    Loader {
+                        width: view.width
+                        height: view.height
+                        asynchronous: true
+                        source: Qt.resolvedUrl("SettingsPage.qml")
+                    }
+                }
+            }
+        }
+
+}
+/*Page {
     id: mainPage
 
     property string version: ""
     property string buildNum: ""
 
-    SilicaListView {
+    ListView {
         id: homeListView
 
         anchors.fill: parent
 
-        header: PageHeader {
-            id: mainHeader
-            title: "Prxrv"
-        }
+        
+        header: Label { text: "Prxrv" }
 
-        PullDownMenu {
+       /* PullDownMenu {
             id: pullDownMenu
             MenuItem {
                 // TODO
@@ -42,7 +152,6 @@ Page {
                 }
             }
         }
-
         BusyIndicator {
             anchors.centerIn: parent
             running: token == "" && Boolean(user.name)
@@ -96,7 +205,7 @@ Page {
             }
         }
 
-        delegate: ListItem {
+        /*delegate: ListItem {
             id: listItem
             width: parent.width
             visible: model != "booruModel" || booruEnabled
@@ -131,7 +240,8 @@ Page {
         }
     }
 
-    onStatusChanged: {
+
+    /*onStatusChanged: {
         if (status == PageStatus.Active) {
             console.log('Debug mode:', debugOn)
             // TODO side menu
@@ -148,5 +258,5 @@ Page {
         requestMgr.errorMessage.connect(showErrorMessage)
     }
 
-}
+}*/
 

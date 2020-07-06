@@ -22,9 +22,6 @@ load(ubuntu-click)
 # packaging and for the IDE to create runconfigurations
 UBUNTU_MANIFEST_FILE=manifest.json.in
 
-# specify translation domain, this must be equal with the
-# app name in the manifest file
-#UBUNTU_TRANSLATION_DOMAIN="harbour-messwerk.mymike00"
 
 QT += gui qml quick
 
@@ -53,6 +50,8 @@ SOURCES += src/harbour-prxrv.cpp \
     src/pxvnetworkaccessmanager.cpp
 
 RESOURCES += harbour-prxrv.qrc
+
+RESOURCES += qml/components
 
 
 OTHER_FILES += rpm/harbour-prxrv.yaml \

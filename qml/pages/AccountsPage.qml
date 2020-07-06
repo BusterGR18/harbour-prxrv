@@ -1,7 +1,10 @@
-import QtQuick 2.2
-import Sailfish.Silica 1.0
-
+import QtQuick 2.4
+import Ubuntu.Components 1.3
+import QtQml.Models 2.1
+import Qt.labs.settings 1.0
 import "../js/accounts.js" as Accounts
+import "../components"
+import "../components/ListItems" as ListItems
 
 Page {
     id: accountsPage
@@ -31,7 +34,29 @@ Page {
         });
     }
 
-    SilicaFlickable {
+    header: PageHeader {
+        title: "Setup your account"
+        flickable: view.flickableItem
+    }
+
+    ScrollView{
+        id: view
+        anchors.fill: parent
+        Column{
+            width: view.width
+            ListItems.SectionDivider {
+                text: "Accounts"
+
+                // Check for "undefined"
+                // Ref. http://askubuntu.com/questions/527799/how-do-you-check-if-a-property-is-undefined-in-qml
+                visible: typeof settings.enableIndicatorMenu != "undefined"
+            }
+        }
+
+    }
+
+
+    /*Flickable {
         id: accountsFlickable
 
         height: accountsColumn.height + Theme.paddingLarge
@@ -158,5 +183,5 @@ Page {
         if (status === PageStatus.Activating) {
             reloadAccounts();
         }
-    }
+    }*/
 }

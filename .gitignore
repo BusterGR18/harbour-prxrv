@@ -36,3 +36,5 @@ Makefile*
 rpm/*.spec
 
 .*.sw?
+build
+rpm

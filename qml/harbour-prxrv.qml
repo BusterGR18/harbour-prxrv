@@ -1,11 +1,13 @@
 import QtQuick 2.9
 import QtQuick.Controls 2.0
+import Ubuntu.Components 1.3 as UITK
 
 import "pages"
 import "js/pixiv.js" as Pixiv
 import "js/settings.js" as Settings
 import "js/accounts.js" as Accounts
 import "js/upgrade.js" as Upgrade
+import "Theme.js" as Theme
 
 ApplicationWindow
 {
@@ -49,7 +51,7 @@ ApplicationWindow
     property bool showFollowing: true
 
     // Cover
-    property var coverIndex: [0, ]
+    //property var coverIndex: [0, ]
 
     // Details
     /**
@@ -315,8 +317,7 @@ ApplicationWindow
             opacity = 0.9
             infoBanner.visible = true
         }
-
-        Behavior on opacity { FadeAnimation {} }
+        
 
         Timer {
             id: closeTimer
@@ -331,6 +332,8 @@ ApplicationWindow
 
     //initialPage: Component { Prxrv { } }
         visible:true
+        width: units.gu(40)
+        height: units.gu(60)
         StackView {
         id: pageStackView
         anchors.fill: parent

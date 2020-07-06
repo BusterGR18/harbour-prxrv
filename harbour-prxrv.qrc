@@ -1,6 +1,7 @@
 <RCC>
 	<qresource prefix="/">
 		<file>qml/harbour-prxrv.qml</file>
+		<file>qml/components/ListItems/AppLauncher.qml</file>
 		<file>qml/fonts/fontawesome-webfont.ttf</file>
 		<file>qml/js/accounts.js</file>
 		<file>qml/js/pixiv.js</file>
@@ -17,6 +18,7 @@
 		<file>qml/pages/FeedsPage.qml</file>
 		<file>qml/pages/FollowingPage.qml</file>
 		<file>qml/pages/LatestWorkPage.qml</file>
+		<file>qml/pages/IMPage.qml</file>
 		<file>qml/pages/PreviewPage.qml</file>
 		<file>qml/pages/ProfilePage.qml</file>
 		<file>qml/pages/Prxrv.qml</file>
@@ -30,5 +32,6 @@
 		<file>qml/pages/UserWorkPage.qml</file>
 		<file>qml/pages/WebViewPage.qml</file>
 		<file>qml/pages/WorksSearchPage.qml</file>
+		<file>qml/Theme.js</file>
 	</qresource>
 </RCC>

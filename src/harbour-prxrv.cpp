@@ -54,8 +54,6 @@ int main(int argc, char *argv[])
     QTextCodec *codec = QTextCodec::codecForName("UTF-8");
     QTextCodec::setCodecForLocale(codec);
 
-    //QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
-    //QScopedPointer<QQuickView> view(SailfishApp::createView());
 
     QGuiApplication *app = new QGuiApplication(argc, (char**)argv);
     app->setApplicationName("harbour-prxrv.gusma18");
@@ -67,23 +65,24 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Suru");
     QQuickView *view = new QQuickView();    
 
-    
+  
 
     PxvNAMFactory pnamf;    
-    view.engine()->setNetworkAccessManagerFactory(&pnamf);
+    view->engine()->setNetworkAccessManagerFactory(&pnamf);
 
     PxvImageProvider* pxvImageProvider = new PxvImageProvider;
-    view.engine()->addImageProvider(QLatin1String("pxv"), pxvImageProvider);
+    view->engine()->addImageProvider(QLatin1String("pxv"), pxvImageProvider);
 
     RequestMgr requestMgr;
-    view.rootContext()->setContextProperty("requestMgr", &requestMgr);
+    view->rootContext()->setContextProperty("requestMgr", &requestMgr);
 
     CacheMgr cacheMgr;
-    cacheMgr.setQNetworkAccessManager(view.engine()->networkAccessManager());
-    view.rootContext()->setContextProperty("cacheMgr", &cacheMgr);
+    cacheMgr.setQNetworkAccessManager(view->engine()->networkAccessManager());
+    view->rootContext()->setContextProperty("cacheMgr", &cacheMgr);
 
     Utils utils;
-    view.rootContext()->setContextProperty("utils", &utils);
+    view->rootContext()->setContextProperty("utils", &utils);
+    
     
     engine.load(QUrl(QStringLiteral("qrc:///qml/harbour-prxrv.qml")));
 
