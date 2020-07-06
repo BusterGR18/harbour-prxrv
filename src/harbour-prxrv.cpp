@@ -37,8 +37,10 @@
 #include <QQuickView>
 #include <QQmlContext>
 #include <QTextCodec>
-
-#include <sailfishapp.h>
+#include <QQuickStyle>
+#include <QQmlApplicationEngine> 
+#include <QCoreApplication>
+#include <QGuiApplication>
 
 #include "pxvnamfactory.h"
 #include "pxvimageprovider.h"
@@ -52,27 +54,38 @@ int main(int argc, char *argv[])
     QTextCodec *codec = QTextCodec::codecForName("UTF-8");
     QTextCodec::setCodecForLocale(codec);
 
-    QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
-    QScopedPointer<QQuickView> view(SailfishApp::createView());
+    //QScopedPointer<QGuiApplication> app(SailfishApp::application(argc, argv));
+    //QScopedPointer<QQuickView> view(SailfishApp::createView());
 
-    PxvNAMFactory pnamf;
-    view->engine()->setNetworkAccessManagerFactory(&pnamf);
+    QGuiApplication *app = new QGuiApplication(argc, (char**)argv);
+    app->setApplicationName("harbour-prxrv.gusma18");
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+    qputenv("QT_SCALE_FACTOR", "2.0");
+
+    QQmlApplicationEngine engine;
+    QQuickStyle::setStyle("Suru");
+    QQuickView *view = new QQuickView();    
+
+    
+
+    PxvNAMFactory pnamf;    
+    view.engine()->setNetworkAccessManagerFactory(&pnamf);
 
     PxvImageProvider* pxvImageProvider = new PxvImageProvider;
-    view->engine()->addImageProvider(QLatin1String("pxv"), pxvImageProvider);
+    view.engine()->addImageProvider(QLatin1String("pxv"), pxvImageProvider);
 
     RequestMgr requestMgr;
-    view->rootContext()->setContextProperty("requestMgr", &requestMgr);
+    view.rootContext()->setContextProperty("requestMgr", &requestMgr);
 
     CacheMgr cacheMgr;
-    cacheMgr.setQNetworkAccessManager(view->engine()->networkAccessManager());
-    view->rootContext()->setContextProperty("cacheMgr", &cacheMgr);
+    cacheMgr.setQNetworkAccessManager(view.engine()->networkAccessManager());
+    view.rootContext()->setContextProperty("cacheMgr", &cacheMgr);
 
     Utils utils;
-    view->rootContext()->setContextProperty("utils", &utils);
-
-    view->setSource(SailfishApp::pathTo("qml/harbour-prxrv.qml"));
-    view->show();
+    view.rootContext()->setContextProperty("utils", &utils);
+    
+    engine.load(QUrl(QStringLiteral("qrc:///qml/harbour-prxrv.qml")));
 
     return app->exec();
 }

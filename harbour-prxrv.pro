@@ -12,9 +12,27 @@
 # The name of your application
 TARGET = harbour-prxrv
 
-CONFIG += sailfishapp
-
 CONFIG += c++11
+
+TEMPLATE=app
+#load Ubuntu specific features
+load(ubuntu-click)
+
+# specify the manifest file, this file is required for click
+# packaging and for the IDE to create runconfigurations
+UBUNTU_MANIFEST_FILE=manifest.json.in
+
+# specify translation domain, this must be equal with the
+# app name in the manifest file
+#UBUNTU_TRANSLATION_DOMAIN="harbour-messwerk.mymike00"
+
+QT += gui qml quick
+
+# specifies all translations files and makes sure they are
+# compiled and installed into the right place in the click package
+UBUNTU_PO_FILES+=$$files(po/*.po)
+
+QT += gui qml quick quickcontrols2
 
 HEADERS += \
     src/pxvrequest.h \
@@ -34,20 +52,27 @@ SOURCES += src/harbour-prxrv.cpp \
     src/pxvnamfactory.cpp \
     src/pxvnetworkaccessmanager.cpp
 
-OTHER_FILES += qml/harbour-prxrv.qml \
-    qml/cover/CoverPage.qml \
-    qml/pages/*.qml \
-    qml/js/*.js \
-    qml/images/* \
-    qml/fonts/fontawesome-webfont.ttf \
-    rpm/harbour-prxrv.yaml \
+RESOURCES += harbour-prxrv.qrc
+
+
+OTHER_FILES += rpm/harbour-prxrv.yaml \
     rpm/harbour-prxrv.changes \
     translations/*.ts \
+    harbour-prxrv.apparmor \
     harbour-prxrv.desktop \
     harbour-prxrv.png
 
+config_files.path = /
+config_files.files = $${OTHER_FILES}
+
+INSTALLS += config_files
+
+# Default rules for deployment.
+target.path = /
+INSTALLS+=target
+
 # to disable building translations every time, comment out the
 # following CONFIG line
-CONFIG += sailfishapp_i18n
-
-TRANSLATIONS += translations/harbour-prxrv-zh_CN.ts
+#CONFIG += sailfishapp_i18n
+#
+#TRANSLATIONS += translations/harbour-prxrv-zh_CN.ts

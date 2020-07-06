@@ -1,6 +1,5 @@
-import QtQuick 2.2
-import Sailfish.Silica 1.0
-import org.nemomobile.notifications 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.0
 
 import "pages"
 import "js/pixiv.js" as Pixiv
@@ -19,8 +18,8 @@ ApplicationWindow
     // Settings
     property bool debugOn: Settings.read('debugOn')
     property bool showR18: Settings.read('showR18')
-    property string savePath: Settings.read('savePath') || "/home/nemo/Pictures"
-    property string cachePath: Settings.read('cachePath') || "/home/nemo/.cache/harbour-prxrv"
+    property string savePath: Settings.read('savePath') || "/home/phablet/Pictures"
+    property string cachePath: Settings.read('cachePath') || "/home/phablet/.cache/harbour-prxrv"
     property string customName: Settings.read('customName') || '%i'
 
     // Account
@@ -330,7 +329,16 @@ ApplicationWindow
     }
 
 
-    initialPage: Component { Prxrv { } }
+    //initialPage: Component { Prxrv { } }
+        visible:true
+        StackView {
+        id: pageStackView
+        anchors.fill: parent
 
-    cover: Qt.resolvedUrl("cover/CoverPage.qml")
+        initialItem: Prxrv {
+            property StackView pageStack: pageStackView
+        }
+    }
+
+    
 }

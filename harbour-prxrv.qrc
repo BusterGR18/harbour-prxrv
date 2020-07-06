@@ -1,0 +1,34 @@
+<RCC>
+	<qresource prefix="/">
+		<file>qml/harbour-prxrv.qml</file>
+		<file>qml/fonts/fontawesome-webfont.ttf</file>
+		<file>qml/js/accounts.js</file>
+		<file>qml/js/pixiv.js</file>
+		<file>qml/js/prxrv.js</file>
+		<file>qml/js/settings.js</file>
+		<file>qml/js/storage.js</file>
+		<file>qml/js/upgrade.js</file>
+		<file>qml/pages/AccountDialog.qml</file>
+		<file>qml/pages/AccountsPage.qml</file>
+		<file>qml/pages/BlankPage.qml</file>
+		<file>qml/pages/DetailPage.qml</file>
+		<file>qml/pages/DownloadsPage.qml</file>
+		<file>qml/pages/FavoriteWorkPage.qml</file>
+		<file>qml/pages/FeedsPage.qml</file>
+		<file>qml/pages/FollowingPage.qml</file>
+		<file>qml/pages/LatestWorkPage.qml</file>
+		<file>qml/pages/PreviewPage.qml</file>
+		<file>qml/pages/ProfilePage.qml</file>
+		<file>qml/pages/Prxrv.qml</file>
+		<file>qml/pages/RankingPage.qml</file>
+		<file>qml/pages/RecommendationPage.qml</file>
+		<file>qml/pages/RelatedWorksPage.qml</file>
+		<file>qml/pages/SettingsPage.qml</file>
+		<file>qml/pages/StaccListPage.qml</file>
+		<file>qml/pages/StaccPage.qml</file>
+		<file>qml/pages/TrendsPage.qml</file>
+		<file>qml/pages/UserWorkPage.qml</file>
+		<file>qml/pages/WebViewPage.qml</file>
+		<file>qml/pages/WorksSearchPage.qml</file>
+	</qresource>
+</RCC>

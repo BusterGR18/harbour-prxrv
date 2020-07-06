@@ -1,5 +1,5 @@
-import QtQuick 2.2
-import Sailfish.Silica 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.0
 
 import "../js/pixiv.js" as Pixiv
 import "../js/accounts.js" as Accounts
@@ -67,7 +67,7 @@ Page {
     }
 
 
-    SilicaFlickable {
+    Flickable {
         id: accountFlickable
 
         contentHeight: accountColumn.height + Theme.paddingLarge
