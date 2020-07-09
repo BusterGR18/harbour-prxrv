@@ -2,11 +2,46 @@ import QtQuick 2.4
 import Ubuntu.Components 1.3
 import QtQml.Models 2.1
 import Qt.labs.settings 1.0
+
 import "../js/accounts.js" as Accounts
-import "../components"
 import "../components/ListItems" as ListItems
 
-Page {
+
+
+
+
+ScrollView{
+        id: rootItem
+        anchors.fill: parent
+        Column{
+           width: rootItem.width
+            ListItems.SectionDivider {
+                text: "Accounts"
+            }
+            /*Label {
+                id: msgLabel
+                width: parent.width
+                /*anchors {
+                    left: parent.left
+                    leftMargin: Theme.paddingLarge
+                }
+                visible: activeCount !== 1
+                text: "Set one account as active!"
+            }*/
+
+            ListItems.Page{
+                text: "New Account"
+                pageUrl: Qt.resolvedUrl("AccountDialog.qml")
+            }
+
+
+
+
+        }
+
+    }
+
+/*Page {
     id: accountsPage
 
     // Active user
@@ -39,21 +74,10 @@ Page {
         flickable: view.flickableItem
     }
 
-    ScrollView{
-        id: view
-        anchors.fill: parent
-        Column{
-            width: view.width
-            ListItems.SectionDivider {
-                text: "Accounts"
+    
 
-                // Check for "undefined"
-                // Ref. http://askubuntu.com/questions/527799/how-do-you-check-if-a-property-is-undefined-in-qml
-                visible: typeof settings.enableIndicatorMenu != "undefined"
-            }
-        }
 
-    }
+
 
 
     /*Flickable {
@@ -184,4 +208,4 @@ Page {
             reloadAccounts();
         }
     }*/
-}
+

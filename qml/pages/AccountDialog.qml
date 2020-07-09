@@ -1,19 +1,24 @@
-import QtQuick 2.9
-import QtQuick.Controls 2.0
+import QtQuick 2.4
+//import QtQuick.Controls 2.0
+import Ubuntu.Components 1.3
 
 import "../js/pixiv.js" as Pixiv
 import "../js/accounts.js" as Accounts
 import "../Theme.js" as Theme
+import "../components/ListItems" as ListItems
 
 Page {
     // Dialog Component leads to missing global properties in callback setTokenAndConfig()
     id: accountDialog
 
+
+    
     // User account name
     property string username: ''
 
     // User password
     property string password: ''
+    /* 
 
     // Is new account
     property bool isNew: false
@@ -67,8 +72,86 @@ Page {
         passField.text = ""
     }
 
+    */
 
-    Flickable {
+
+    ScrollView{
+        id: rootItem
+        anchors.fill: parent
+
+        Column{
+
+
+            ListItems.SectionDivider {
+                text: "Username"
+            }
+            TextField {
+                id: nameField
+                width: parent.width
+                placeholderText: "Username"
+                inputMethodHints: Qt.ImhNoAutoUppercase
+                hasClearButton: true
+                //readOnly: !isNew
+            }
+
+
+            ListItems.SectionDivider {
+                text: "Password"
+            }
+            TextField {
+                id: passField
+                width: parent.width
+                echoMode: TextInput.Password
+                placeholderText: "Password"
+                hasClearButton: true
+                
+            }
+            /*ListItems.Control {
+                title.text: "Remember Me"
+                //summary.text: "Shows or hide R-18 Works"
+                //summary.maximumLineCount: Number.MAX_VALUE
+
+                control: Switch {
+                    Component.onCompleted: checked = !rememberMe
+                    onClicked: {
+                        rememberMe = checked;
+                    }
+                }
+            }
+            
+            ListItems.Control {
+                title.text: "Active"
+                //summary.text: "Shows or hide R-18 Works"
+                //summary.maximumLineCount: Number.MAX_VALUE
+
+                control: Switch {
+                    Component.onCompleted: checked=!isActive
+                    onClicked: {
+                        isActive = checked;
+                    }
+                }
+            }*/
+
+            ListItems.Button{
+                id: saveButton
+                title.text: "Save Account"
+                button{
+                    text: "Save"
+                    onClicked:{
+                        saveAccount()
+                    }
+
+                }
+            }
+
+
+
+        }
+
+    }
+
+
+    /*Flickable {
         id: accountFlickable
 
         contentHeight: accountColumn.height + Theme.paddingLarge
@@ -151,7 +234,7 @@ Page {
                 }
             }
         }
-    }
+    }*/
 
 }
 

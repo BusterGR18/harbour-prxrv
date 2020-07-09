@@ -63,7 +63,7 @@ ApplicationWindow
     property int leftPadding: 25
 
     // Booru
-    property bool booruEnabled: checkBooruEnabled()
+    //property bool booruEnabled: checkBooruEnabled()
     property bool toReloadAccounts: true
     property bool loadSample: false
     property string currentDomain: ''
@@ -87,9 +87,9 @@ ApplicationWindow
     ListModel { id: downloadsModel }
 
 
-    function checkBooruEnabled() {
+    /*function checkBooruEnabled() {
         return utils.checkBooruInstalled() && Settings.read('booruEnabled');
-    }
+    }*/
 
     function currentAccount() {
         var account = Accounts.current();
@@ -274,7 +274,7 @@ ApplicationWindow
     }
 
     // Info banner
-    Rectangle {
+    /*Rectangle {
         id: infoBanner
         y: Theme.paddingSmall
         z: 0
@@ -285,7 +285,7 @@ ApplicationWindow
         opacity: 0
         visible: false
 
-        Label {
+        /*Label {
             id: infoLabel
             text : ''
             font.pixelSize: Theme.fontSizeExtraSmall
@@ -327,7 +327,7 @@ ApplicationWindow
                 infoBanner.visible = true
             }
         }
-    }
+    }*/
 
 
     //initialPage: Component { Prxrv { } }

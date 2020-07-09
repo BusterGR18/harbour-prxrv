@@ -1,11 +1,63 @@
-import QtQuick 2.2
-import Sailfish.Silica 1.0
-import QtWebKit.experimental 1.0
+import QtQuick 2.9
+import Ubuntu.Components 1.3
+import Morph.Web 0.1
+import QtWebEngine 1.7
 
 Page {
     property string initUrl: "http://touch.pixiv.net/"
 
-    SilicaWebView {
+
+    id: mwebview
+    anchors {
+        top: parent.top
+        left: parent.left
+        right: parent.right
+        bottom: parent.bottom
+    }
+    Header: PageHeader {
+            visible: false
+    }
+
+    WebContext {
+            id: webcontext
+    }
+
+    WebView {
+            id: webview
+
+            anchors {
+                top: parent.top
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
+
+            // TODO error page
+            context: webcontext
+            url: initUrl
+
+            //settings.allowRunningInsecureContent: true
+
+            Component.onCompleted: {
+                settings.localStorageEnabled = true
+            }
+
+        }
+
+        ProgressBar {
+            height: units.dp(3)
+            anchors {
+                left: parent.left
+                right: parent.right
+                top: parent.top
+            }
+
+            showProgressPercentage: false
+            value: (webview.loadProgress / 100)
+            visible: (webview.loading && !webview.lastLoadStopped)
+        }
+
+    /*SilicaWebView {
         id: webView
 
         header: PageHeader {
@@ -103,5 +155,5 @@ Page {
                 }
             }
         }
-    }
+    }*/
 }

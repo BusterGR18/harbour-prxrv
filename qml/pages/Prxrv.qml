@@ -35,13 +35,13 @@ MainView{
 
                 leadingActionBar.actions: [
                     Action {
-                        text: i18n.tr("Accounts")
+                        text: i18n.tr("Main")
                         onTriggered: mainPage.header.selectedTabIndex = 0
                         iconName: mainPage.header.selectedTabIndex == 0 ? "tick" : ""
                     },
 
                     Action {
-                        text: i18n.tr("Main")
+                        text: i18n.tr("Accounts")
                         onTriggered: mainPage.header.selectedTabIndex = 1
                         iconName: mainPage.header.selectedTabIndex == 1 ? "tick" : ""
                     },
@@ -96,14 +96,14 @@ MainView{
                         width: view.width
                         height: view.height
                         asynchronous: true
-                        source: Qt.resolvedUrl("AccountsPage.qml")
+                        source: Qt.resolvedUrl("IMPage.qml")
                     }
                     Loader {
                         width: view.width
                         height: view.height
                         asynchronous: true
-                        source: Qt.resolvedUrl("IMPage.qml")
-                    }
+                        source: Qt.resolvedUrl("AccountsPage.qml")
+                    }                    
                     Loader {
                         width: view.width
                         height: view.height

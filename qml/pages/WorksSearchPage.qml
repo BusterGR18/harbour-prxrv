@@ -1,5 +1,5 @@
-import QtQuick 2.2
-import Sailfish.Silica 1.0
+import QtQuick 2.9
+import Ubuntu.Components 1.3
 
 import "../js/pixiv.js" as Pixiv
 import "../js/prxrv.js" as Prxrv

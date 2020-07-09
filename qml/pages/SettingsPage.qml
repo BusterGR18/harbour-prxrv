@@ -1,6 +1,5 @@
 import QtQuick 2.4
 import Ubuntu.Components 1.3
-import GSettings 1.0
 
 import "../components"
 import "../components/ListItems" as ListItems
@@ -47,13 +46,30 @@ Page {
         anchors.fill: parent
         Column{
             width: view.width
+
+            ListItems.SectionDivider {
+                text: "Reset"
+            }
+            
+            ListItems.Button{
+                id: reallRow
+                title.text: "Reset all settings and accounts?"
+                button{
+                    text: "Reset"
+                    onClicked:{
+                        Upgrade.reset()
+                    }
+
+                }
+            }
+            
             
             ListItems.SectionDivider {
                 text: "Downloads"
-
-                // Check for "undefined"
-                // Ref. http://askubuntu.com/questions/527799/how-do-you-check-if-a-property-is-undefined-in-qml
-                visible: typeof settings.enableIndicatorMenu != "undefined"
+            }
+            
+            ListItems.SectionDivider{
+                text: "Behaviour"
             }
 
             
@@ -62,12 +78,8 @@ Page {
                 summary.text: "Shows or hide R-18 Works"
                 summary.maximumLineCount: Number.MAX_VALUE
 
-                // Check for "undefined"
-                // Ref. http://askubuntu.com/questions/527799/how-do-you-check-if-a-property-is-undefined-in-qml
-                visible: typeof settings.enableIndicatorMenu != "undefined"
-
                 control: Switch {
-                    Component.onCompleted: checked = settings.enableIndicatorMenu
+                    Component.onCompleted: checked = Settings.write('showR18', checked)
                     onClicked: {
                         Settings.write('showR18', checked)
                     }
@@ -80,12 +92,8 @@ Page {
                 summary.text: "Enable or disable Debug"
                 summary.maximumLineCount: Number.MAX_VALUE
 
-                // Check for "undefined"
-                // Ref. http://askubuntu.com/questions/527799/how-do-you-check-if-a-property-is-undefined-in-qml
-                visible: typeof settings.enableIndicatorMenu != "undefined"
-
                 control: Switch {
-                    Component.onCompleted: checked = settings.enableIndicatorMenu
+                    Component.onCompleted: checked = Settings.write('debugOn', checked)
                     onClicked: {
                         Settings.write('debugOn', checked)
                     }
@@ -94,10 +102,6 @@ Page {
 
             ListItems.SectionDivider {
                 text: "Cache"
-
-                // Check for "undefined"
-                // Ref. http://askubuntu.com/questions/527799/how-do-you-check-if-a-property-is-undefined-in-qml
-                visible: typeof settings.enableIndicatorMenu != "undefined"
             }
 
             ListItems.Button{
